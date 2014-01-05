@@ -43,7 +43,7 @@ public class EnemyTargeting : MonoBehaviour
 		{
 			RaycastHit hit;
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			if (Physics.Raycast(ray, out hit) && hit.transform.CompareTag("Enemy"))
+			if (Physics.Raycast(ray, out hit, 100) && hit.transform.CompareTag("Enemy"))
 			{
 				Debug.Log("Enemy Selected");
 				DeselectTarget();

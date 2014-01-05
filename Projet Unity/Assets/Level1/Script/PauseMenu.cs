@@ -43,17 +43,20 @@ public class PauseMenu : MonoBehaviour {
 
 	void Update () 
 	{
-		if (Input.GetKeyDown (KeyCode.P)) 
+		if(!PauseM)
 		{
-			Pause = true;
-			PauseM = !PauseM;
-			if(Pause)
+			if (Input.GetKeyDown (KeyCode.P)) 
 			{
-				timeScale = Time.timeScale;
-			}
-			else
-			{
-				Time.timeScale = 1;
+				Pause = true;
+				PauseM = !PauseM;
+				if(Pause)
+				{
+					timeScale = Time.timeScale;
+				}
+				else
+				{
+					Time.timeScale = 1;
+				}
 			}
 		}
 		

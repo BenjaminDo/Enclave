@@ -9,6 +9,9 @@ public class ActionBar : MonoBehaviour
 	//Skills
 	private Texture2D Case;
 	private Texture2D Estocad;
+	private Texture2D Salve;
+	private Texture2D Parade;
+	private Texture2D Pourfendeur;
 
 	//Life
 	private Texture2D EmptyLife;
@@ -47,6 +50,9 @@ public class ActionBar : MonoBehaviour
 		EmptyVap = Resources.Load("GUI/ActionBar/vapovide")as Texture2D;
 		Case = Resources.Load("GUI/ActionBar/case")as Texture2D;
 		Estocad = Resources.Load("GUI/ActionBar/Estocad") as Texture2D;
+		Salve = Resources.Load("GUI/ActionBar/Salve") as Texture2D;
+		Parade = Resources.Load("GUI/ActionBar/Parade") as Texture2D;
+		Pourfendeur = Resources.Load("GUI/ActionBar/Pourfendeur") as Texture2D;
 
 		//Foreground
 		myLife =  Resources.Load("GUI/ActionBar/FullLife")as Texture2D;
@@ -84,9 +90,9 @@ public class ActionBar : MonoBehaviour
 		GUI.EndGroup();
 
 		GUI.DrawTexture(new Rect(Screen.width / 2 - 180, Screen.height - 100,60,60), Estocad);
-		GUI.DrawTexture(new Rect(Screen.width / 2 - 120, Screen.height - 100,60,60), Case);
-		GUI.DrawTexture(new Rect(Screen.width / 2 - 60, Screen.height - 100,60,60), Case);
-		GUI.DrawTexture(new Rect(Screen.width / 2, Screen.height - 100,60,60), Case);
+		GUI.DrawTexture(new Rect(Screen.width / 2 - 120, Screen.height - 100,60,60), Salve);
+		GUI.DrawTexture(new Rect(Screen.width / 2 - 60, Screen.height - 100,60,60), Parade);
+		GUI.DrawTexture(new Rect(Screen.width / 2, Screen.height - 100,60,60), Pourfendeur);
 		GUI.DrawTexture(new Rect(Screen.width / 2 + 60, Screen.height - 100,60,60), Case);
 
 		//Sang-Froid

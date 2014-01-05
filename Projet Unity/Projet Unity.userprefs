@@ -1,12 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Menu\Scripts\WhiteGem.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Level1\Script\EnemyTargeting.cs">
     <Files>
-      <File FileName="Assets\Menu\Scripts\WhiteGem.cs" Line="146" Column="2" />
-      <File FileName="Assets\Level1\Script\ActionBar.cs" Line="1" Column="1" />
-      <File FileName="Assets\Level1\Script\CharacterCaracteristics.cs" Line="1" Column="1" />
+      <File FileName="Assets\Level1\Script\PauseMenu.cs" Line="111" Column="1" />
+      <File FileName="Assets\Level1\Script\ActionBar.cs" Line="95" Column="85" />
+      <File FileName="Assets\Level1\Script\EnemyTargeting.cs" Line="168" Column="1" />
       <File FileName="Assets\Level1\Script\EnnemyAI.cs" Line="1" Column="1" />
-      <File FileName="Assets\Level1\Script\EnemyTargeting.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
