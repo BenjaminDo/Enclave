@@ -9,6 +9,8 @@ public class CharacterCaracteristics : MonoBehaviour
 
 	private float LifeDelay = 10;
 
+	private bool parade = false;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -59,6 +61,17 @@ public class CharacterCaracteristics : MonoBehaviour
 		return PlayerForce;
 	}
 
+	/*** Avec value le chagment ***/
+	public void SetDeltaVitality( float value )
+	{
+		if(parade){
+			parade = false;
+			return;
+		}
+
+		PlayerVitality += value;
+	}
+
 	public void SetVitality( float value )
 	{
 		PlayerVitality = value;
@@ -77,5 +90,10 @@ public class CharacterCaracteristics : MonoBehaviour
 	public float GetSpeed()
 	{
 		return PlayerSpeed;
+	}
+
+	public void setParade(bool bParade)
+	{
+		parade = bParade;
 	}
 }

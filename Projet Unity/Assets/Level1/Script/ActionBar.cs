@@ -113,4 +113,22 @@ public class ActionBar : MonoBehaviour
 	{
 		NbSf += 10;
 	}
+
+	public bool useVap(int nbUse)
+	{
+		if(NbVap < nbUse)
+			return false;
+
+		NbVap -= nbUse;
+		return true;
+	}
+
+	public bool useSf(int nbUse)
+	{
+		if(NbSf < nbUse)
+			return false;
+		
+		NbSf-= nbUse;
+		return true;
+	}
 }
