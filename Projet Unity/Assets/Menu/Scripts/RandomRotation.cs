@@ -13,6 +13,8 @@ using System.Collections;
 public class RandomRotation : MonoBehaviour 
 {
 	private float RotateSpeed;
+
+	public string RotationAxe = "y";
 	
 	private Vector3 originalPosition;
 	
@@ -30,12 +32,24 @@ public class RandomRotation : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		//Rotatation
-		transform.Rotate(0, -Time.deltaTime * RotateSpeed, 0, Space.World);
-		
-		Vector3 temp = transform.position;
-		temp.y = originalPosition.y + Mathf.Sin(Time.time * 0.3f) * 0.2f;
-		transform.position = temp;
+		if(RotationAxe == "y")
+		{
+			//Rotatation
+			transform.Rotate(0, -Time.deltaTime * RotateSpeed, 0, Space.World);
+			
+			Vector3 temp = transform.position;
+			temp.y = originalPosition.y + Mathf.Sin(Time.time * 0.3f) * 0.2f;
+			transform.position = temp;
+		}
+		else if(RotationAxe == "x")
+			{
+				//Rotatation
+				transform.Rotate(-Time.deltaTime * RotateSpeed/2,0, 0, Space.World);
+				
+				Vector3 temp = transform.position;
+				temp.x = originalPosition.x + Mathf.Sin(Time.time * 0.3f) * 2f;
+				transform.position = temp;
+			}
 		
 	}
 }
