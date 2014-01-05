@@ -47,16 +47,6 @@ public class RedGem : MonoBehaviour
 	//Texte
 	private TextMesh GemTitle;
 	
-	//Changement de scene
-	public bool ChangeMode;
-	
-	//Scripts
-	private BlueGem Blue;
-	private VioletGem Violet;
-	private WhiteGem White;
-	private BlackGem Black;
-	private YellowGem Yellow;
-	
 	/*			METHODES			*/
 	
 	//Constructor
@@ -81,15 +71,6 @@ public class RedGem : MonoBehaviour
 		//Initialisation des statuts
 		GemPartEmitter.emit = false;																	//Dissimulation des particules
 		GemTitle.renderer.enabled = false;																//Dissimulation du texte
-	
-		
-		ChangeMode = false;
-																										//Récuparation des scripts
-		Blue = GameObject.FindGameObjectWithTag("Blue").GetComponent<BlueGem>();
-		Violet = GameObject.FindGameObjectWithTag("Violet").GetComponent<VioletGem>();
-		White = GameObject.FindGameObjectWithTag("White").GetComponent<WhiteGem>();
-		Black = GameObject.FindGameObjectWithTag("Black").GetComponent<BlackGem>();
-		Yellow = GameObject.FindGameObjectWithTag("Yellow").GetComponent<YellowGem>();
 	}
 
 	// Use this for initialization
@@ -134,51 +115,30 @@ public class RedGem : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		if(!ChangeMode)
-		{
-			//Effet de lumière
-			float noise = Mathf.PerlinNoise(randomIntensity, Time.time);
-        	GemLight.intensity = Mathf.Lerp(minIntensity, maxIntensity,noise);							//La palpitation !!
-		}
-		
-		if(ChangeMode)
-		{
-			gameObject.renderer.enabled = false;
-			Blue.ChangeMode = true;
-			Violet.ChangeMode = true;
-			White.ChangeMode = true;
-			Black.ChangeMode = true;
-			Yellow.ChangeMode = true;															
-			GemPartEmitter.ClearParticles();
-			GemLight.enabled = false;
-		}
+		//Effet de lumière
+		float noise = Mathf.PerlinNoise(randomIntensity, Time.time);
+        GemLight.intensity = Mathf.Lerp(minIntensity, maxIntensity,noise);								//La palpitation !!
+
 	}
 	
 	
 	void OnMouseOver()
 	{
-		if(!ChangeMode)
-		{
-			GemTitle.text = "Extras";																	//Initilaisation du texte de la Gemme
-			GemLight.color = OppositeColor;																//Changement de couleur
-			GemPartEmitter.emit = true;																	//Lancement des particules
-			GemTitle.renderer.enabled = true;															//Affichage du text
-		}																					
+		GemTitle.text = "Extras";																		//Initilaisation du texte de la Gemme
+		GemLight.color = OppositeColor;																	//Changement de couleur
+		GemPartEmitter.emit = true;																		//Lancement des particules
+		GemTitle.renderer.enabled = true;																//Affichage du text																					
 	}
 	
 	void OnMouseExit()
 	{
-		if(!ChangeMode)
-		{
-			GemLight.color = InitialColor;																//Changement de couleur
-			GemPartEmitter.emit = false;																//Arret des particules
-			GemPartEmitter.ClearParticles();															//Suppresion des particules restantes sur l'écran
-			GemTitle.renderer.enabled = false;															//Dissimulation du text
-		}
+		GemLight.color = InitialColor;																	//Changement de couleur
+		GemPartEmitter.emit = false;																	//Arret des particules
+		GemPartEmitter.ClearParticles();																//Suppresion des particules restantes sur l'écran
+		GemTitle.renderer.enabled = false;																//Dissimulation du text
 	}
 	
 	void OnMouseDown()
 	{
-		ChangeMode = true;
 	}
 }

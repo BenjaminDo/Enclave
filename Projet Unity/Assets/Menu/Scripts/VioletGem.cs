@@ -47,16 +47,7 @@ public class VioletGem : MonoBehaviour
 	//Texte
 	private TextMesh GemTitle;
 
-	//Changement de scene
-	public bool ChangeMode;
 
-	//Scripts
-	private BlueGem Blue;
-	private YellowGem Yellow;
-	private WhiteGem White;
-	private BlackGem Black;
-	private RedGem Red;
-	
 	/*			METHODES			*/
 	
 	//Constructor
@@ -83,14 +74,6 @@ public class VioletGem : MonoBehaviour
 		GemPartEmitter.emit = false;																	//Dissimulation des particules
 		GemTitle.renderer.enabled = false;																//Dissimulation du texte
 	
-		
-		ChangeMode = false;
-																										//Récuparation des scripts
-		Blue = GameObject.FindGameObjectWithTag("Blue").GetComponent<BlueGem>();
-		Yellow = GameObject.FindGameObjectWithTag("Yellow").GetComponent<YellowGem>();
-		White = GameObject.FindGameObjectWithTag("White").GetComponent<WhiteGem>();
-		Black = GameObject.FindGameObjectWithTag("Black").GetComponent<BlackGem>();
-		Red = GameObject.FindGameObjectWithTag("Red").GetComponent<RedGem>();
 	}
 
 	// Use this for initialization
@@ -136,51 +119,34 @@ public class VioletGem : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		if(!ChangeMode)
-		{
-			//Effet de lumière
-			float noise = Mathf.PerlinNoise(randomIntensity, Time.time);
-        	GemLight.intensity = Mathf.Lerp(minIntensity, maxIntensity,noise);							//La palpitation !!
-		}
-		
-		if(ChangeMode)
-		{
-			gameObject.renderer.enabled = false;
-			Blue.ChangeMode = true;
-			Yellow.ChangeMode = true;
-			White.ChangeMode = true;
-			Black.ChangeMode = true;
-			Red.ChangeMode = true;														
-			GemPartEmitter.ClearParticles();
-			GemLight.enabled = false;
-		}
+		if(Time.timeScale == 0)
+			Time.timeScale = 1;
+
+		//Effet de lumière
+		float noise = Mathf.PerlinNoise(randomIntensity, Time.time);
+		GemLight.intensity = Mathf.Lerp(minIntensity, maxIntensity,noise);								//La palpitation !!	
 	}
 	
 	
 	void OnMouseOver()
 	{
-		if(!ChangeMode)
-		{
-			GemTitle.text = "Nouvelle Partie";															//Initilaisation du Texte de la Gemme
-			GemLight.color = OppositeColor;																//Changement de couleur
-			GemPartEmitter.emit = true;																	//Lancement des particules
-			GemTitle.renderer.enabled = true;															//Affichage du texte
-		}																					
+		GemTitle.text = "Nouvelle Partie";																//Initilaisation du Texte de la Gemme
+		GemLight.color = OppositeColor;																	//Changement de couleur
+		GemPartEmitter.emit = true;																		//Lancement des particules
+		GemTitle.renderer.enabled = true;
+
 	}
 	
 	void OnMouseExit()
 	{
-		if(!ChangeMode)
-		{
-			GemLight.color = InitialColor;																//Changement de couleur
-			GemPartEmitter.emit = false;																//Arret des particules
-			GemPartEmitter.ClearParticles();															//Suppresion des particules restantes sur l'écran
-			GemTitle.renderer.enabled = false;															//Dissimulation du texte
-		}
+		GemLight.color = InitialColor;																	//Changement de couleur
+		GemPartEmitter.emit = false;																	//Arret des particules
+		GemPartEmitter.ClearParticles();																//Suppresion des particules restantes sur l'écran
+		GemTitle.renderer.enabled = false;
 	}
 	
 	void OnMouseDown()
 	{
-		ChangeMode = true;
+		Application.LoadLevel(1);
 	}
 }

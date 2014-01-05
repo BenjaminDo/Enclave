@@ -48,16 +48,6 @@ public class BlackGem : MonoBehaviour
 	//Texte
 	private TextMesh GemTitle;
 	
-	//Changement de scene
-	public bool ChangeMode;
-	
-	//Scripts
-	private VioletGem Violet;
-	private YellowGem Yellow;
-	private WhiteGem White;
-	private BlueGem Blue;
-	private RedGem Red;
-	
 	/*			METHODES			*/
 	
 	//Constructor
@@ -81,15 +71,6 @@ public class BlackGem : MonoBehaviour
 		//Initialisation des statuts
 		GemPartEmitter.emit = false;																	//Dissimulation des particules
 		GemTitle.renderer.enabled = false;																//Dissimulation du texte
-	
-		
-		ChangeMode = false;
-																										//Récuparation des scripts
-		Violet = GameObject.FindGameObjectWithTag("Violet").GetComponent<VioletGem>();
-		Yellow = GameObject.FindGameObjectWithTag("Yellow").GetComponent<YellowGem>();
-		White = GameObject.FindGameObjectWithTag("White").GetComponent<WhiteGem>();
-		Blue = GameObject.FindGameObjectWithTag("Blue").GetComponent<BlueGem>();
-		Red = GameObject.FindGameObjectWithTag("Red").GetComponent<RedGem>();
 	}
 
 	// Use this for initialization
@@ -134,52 +115,32 @@ public class BlackGem : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		if(!ChangeMode)
-		{
-			//Effet de lumière
-			float noise = Mathf.PerlinNoise(randomIntensity, Time.time);
-        	GemLight.intensity = Mathf.Lerp(minIntensity, maxIntensity,noise);							//La palpitation !!
-		}
-		
-		if(ChangeMode)
-		{
-			gameObject.renderer.enabled = false;
-			Violet.ChangeMode = true;
-			Yellow.ChangeMode = true;
-			White.ChangeMode = true;
-			Blue.ChangeMode = true;
-			Red.ChangeMode = true;
-			GemPartEmitter.emit = false;															
-			GemPartEmitter.ClearParticles();
-			GemLight.enabled = false;
-		}
+		//Effet de lumière
+		float noise = Mathf.PerlinNoise(randomIntensity, Time.time);
+        GemLight.intensity = Mathf.Lerp(minIntensity, maxIntensity,noise);								//La palpitation !!
+
 	}
 	
 	
 	void OnMouseOver()
 	{
-		if(!ChangeMode)
-		{
-			GemTitle.text = "Achivements";																//Initilaisation du titre de la Gemme
-			GemLight.color = OppositeColor;																//Changement de couleur
-			GemPartEmitter.emit = true;																	//Lancement des particules
-			GemTitle.renderer.enabled = true;															//Affichage du text
-		}																				
+		GemTitle.text = "Achivements";																	//Initilaisation du titre de la Gemme
+		GemLight.color = OppositeColor;																	//Changement de couleur
+		GemPartEmitter.emit = true;																		//Lancement des particules
+		GemTitle.renderer.enabled = true;																//Affichage du text
+																					
 	}
 	
 	void OnMouseExit()
 	{
-		if(!ChangeMode)
-		{
-			GemLight.color = InitialColor;																//Changement de couleur
-			GemPartEmitter.emit = false;																//Arret des particules
-			GemPartEmitter.ClearParticles();															//Suppresion des particules restantes sur l'écran
-			GemTitle.renderer.enabled = false;															//Dissimulation du text
-		}
+		GemLight.color = InitialColor;																	//Changement de couleur
+		GemPartEmitter.emit = false;																	//Arret des particules
+		GemPartEmitter.ClearParticles();																//Suppresion des particules restantes sur l'écran
+		GemTitle.renderer.enabled = false;																//Dissimulation du text
+		
 	}
 	
 	void OnMouseDown()
 	{
-		ChangeMode = true;
 	}
 }
