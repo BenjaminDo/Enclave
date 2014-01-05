@@ -141,5 +141,6 @@ public class WhiteGem : MonoBehaviour
 	
 	void OnMouseDown()
 	{
+		Application.Quit();
 	}
 }
