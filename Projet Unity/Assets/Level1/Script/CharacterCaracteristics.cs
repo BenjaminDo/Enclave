@@ -24,7 +24,7 @@ public class CharacterCaracteristics : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		if(PlayerVitality < 0)
+		if(PlayerVitality < 0.5)
 		{
 			Death();
 		}

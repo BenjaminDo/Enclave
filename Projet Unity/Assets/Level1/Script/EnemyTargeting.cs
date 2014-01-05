@@ -7,6 +7,10 @@ public class EnemyTargeting : MonoBehaviour
 	private CharacterCaracteristics PlayerCaract;
 	private ActionBar barreAction;
 
+	//Bruitage
+	private AudioClip SalveSound;
+	private AudioClip EstocadeSound;
+
 	//Enemy 
 	private Transform selectedTarget;
 
@@ -17,7 +21,7 @@ public class EnemyTargeting : MonoBehaviour
 
 	//Fight variables
 	private float AttackRange;
-	private float AttackDist;
+	public float AttackDist;
 
 	//Scripts
 	private EnnemyAI myEnemyScript;
@@ -32,6 +36,9 @@ public class EnemyTargeting : MonoBehaviour
 
 		PlayerCaract = this.GetComponent("CharacterCaracteristics") as CharacterCaracteristics;
 		barreAction = this.GetComponent("ActionBar") as ActionBar;
+
+		SalveSound = Resources.Load("Sound/whoosh3") as AudioClip;
+		EstocadeSound = Resources.Load("Sound/épée coupe") as AudioClip;
 
 		AttackRange = 3;
 	}
@@ -80,6 +87,16 @@ public class EnemyTargeting : MonoBehaviour
 					Estocade();
 				}
 			}
+
+			//Perte du target
+			if(AttackDist > 90)						//Eloignement
+			{
+				DeselectTarget();
+			}
+			if(Input.GetMouseButtonDown(1))			//Deselect manuel
+			{
+				DeselectTarget();
+			}
 		}
 	}
 
@@ -120,6 +137,7 @@ public class EnemyTargeting : MonoBehaviour
 
 		Debug.Log("Attack Estocade");
 
+		audio.PlayOneShot(EstocadeSound);
 		myEnemyLife -= (70 * PlayerCaract.GetForce())/100; // 70% de 100 de force = 70
 		myEnemyScript.SetVitality(myEnemyLife);
 	}
@@ -141,6 +159,7 @@ public class EnemyTargeting : MonoBehaviour
 	}
 
 	void SalveHit(){
+		audio.PlayOneShot(SalveSound);
 		myEnemyLife -= (25 * PlayerCaract.GetForce())/100; 
 		myEnemyScript.SetVitality(myEnemyLife);
 	}

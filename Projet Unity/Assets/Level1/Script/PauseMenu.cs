@@ -4,6 +4,7 @@ using System.Collections;
 public class PauseMenu : MonoBehaviour {
 
 	public GUISkin mySkin;
+	private AudioClip Music;
 
 	private Rect windowRect = new Rect (Screen.width/2 - 400/2, Screen.height/2 - 500/2, 400, 500);
 
@@ -16,6 +17,7 @@ public class PauseMenu : MonoBehaviour {
 	private Texture2D BackKey;
 	private Texture2D LeftKey;
 	private Texture2D RightKey;
+	private Texture2D Mouse;
 
 	void Start () 
 	{
@@ -24,6 +26,10 @@ public class PauseMenu : MonoBehaviour {
 		BackKey = Resources.Load("GUI/Commandes/back") as Texture2D;
 		LeftKey = Resources.Load("GUI/Commandes/left") as Texture2D;
 		RightKey = Resources.Load("GUI/Commandes/right") as Texture2D;
+		Mouse = Resources.Load("GUI/Commandes/mouse") as Texture2D;
+
+		Music = Resources.Load("Sound/FirstAttempt-bolero") as AudioClip;
+
 	}
 	// Use this for initialization
 	void OnGUI ()
@@ -47,6 +53,10 @@ public class PauseMenu : MonoBehaviour {
 		{
 			if (Input.GetKeyDown (KeyCode.P)) 
 			{
+				audio.loop = true;
+				audio.clip = Music;
+				audio.Play();
+
 				Pause = true;
 				PauseM = !PauseM;
 				if(Pause)
@@ -71,6 +81,9 @@ public class PauseMenu : MonoBehaviour {
 		GUILayout.Space(50);
 		if(GUILayout.Button("Reprendre", "Button"))
 		{
+			audio.Stop();
+			audio.loop = false;
+
 			PauseM = false;
 			Pause = false;
 			if(Pause)
@@ -94,13 +107,20 @@ public class PauseMenu : MonoBehaviour {
 	void DoMyInstruc(int windowID)
 	{
 		GUILayout.Label ("Commandes", "Label");
-		GUILayout.Space(60);
+		GUILayout.Space(50);
+
 		GUILayout.Label("Deplacements","Normal");
 		GUI.DrawTexture(new Rect(250,150,40,40), ForwarKey);
 		GUI.DrawTexture(new Rect(250,190,40,40), BackKey);
 		GUI.DrawTexture(new Rect(210,190,40,40), LeftKey);
 		GUI.DrawTexture(new Rect(290,190,40,40), RightKey);
-		GUILayout.Space(100);
+
+		GUILayout.Space(200);
+		GUI.DrawTexture(new Rect(150,280,102,112), Mouse);
+		GUI.Label(new Rect(20,290,102,112),"Selection","SmallNormal");
+		GUI.Label(new Rect(200,290,102,112),"Deselection","SmallNormal");
+
+		GUILayout.Space(40);
 		if(GUILayout.Button("Retour", "Button"))
 		{
 			Instruc = false;
