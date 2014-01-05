@@ -48,7 +48,7 @@ public class EnemyTargeting : MonoBehaviour
 		if(selectedTarget)
 		{
 			AttackDist = Vector3.Distance(transform.position,selectedTarget.position);
-			if(Input.GetKeyDown(KeyCode.E))
+			if(Input.GetKeyDown(KeyCode.Alpha1))
 			{
 				if(AttackDist < AttackRange)
 				{

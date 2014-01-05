@@ -55,7 +55,7 @@ public class EnnemyAI : MonoBehaviour
 
 	//Decompte
 	private float HunTime;
-	private float AttackDelay = 5;
+	private float AttackDelay = 3;
 
 	void Awake()
 	{
@@ -168,6 +168,7 @@ public class EnnemyAI : MonoBehaviour
 			Atack = true;
 			Countdown = false;
 			Hunt = false;
+
 		}
 	}
 

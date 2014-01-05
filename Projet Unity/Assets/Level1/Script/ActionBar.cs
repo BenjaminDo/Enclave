@@ -8,6 +8,7 @@ public class ActionBar : MonoBehaviour
 
 	//Skills
 	private Texture2D Case;
+	private Texture2D Estocad;
 
 	//Life
 	private Texture2D EmptyLife;
@@ -45,6 +46,7 @@ public class ActionBar : MonoBehaviour
 		EmptySF = Resources.Load("GUI/ActionBar/sfvide")as Texture2D;
 		EmptyVap = Resources.Load("GUI/ActionBar/vapovide")as Texture2D;
 		Case = Resources.Load("GUI/ActionBar/case")as Texture2D;
+		Estocad = Resources.Load("GUI/ActionBar/Estocad") as Texture2D;
 
 		//Foreground
 		myLife =  Resources.Load("GUI/ActionBar/FullLife")as Texture2D;
@@ -81,7 +83,7 @@ public class ActionBar : MonoBehaviour
 		GUI.DrawTexture(new Rect(0, 0,300,50), myLife);
 		GUI.EndGroup();
 
-		GUI.DrawTexture(new Rect(Screen.width / 2 - 180, Screen.height - 100,60,60), Case);
+		GUI.DrawTexture(new Rect(Screen.width / 2 - 180, Screen.height - 100,60,60), Estocad);
 		GUI.DrawTexture(new Rect(Screen.width / 2 - 120, Screen.height - 100,60,60), Case);
 		GUI.DrawTexture(new Rect(Screen.width / 2 - 60, Screen.height - 100,60,60), Case);
 		GUI.DrawTexture(new Rect(Screen.width / 2, Screen.height - 100,60,60), Case);
