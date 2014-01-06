@@ -151,6 +151,7 @@ public class EnemyTargeting : MonoBehaviour
 
 		Debug.Log("Attack Salve de couteaux"); // Il faut une classe Enemi avec la vitalité pour faire ça durant 6 secondes
 
+	
 		audio.PlayOneShot(SalveSound);
 
 		foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy")){
@@ -205,6 +206,5 @@ public class EnemyTargeting : MonoBehaviour
 		}
 
 			//Instantiate(respawnPrefab, respawn.transform.position, respawn.transform.rotation) as GameObject;
-
 	}
 }
