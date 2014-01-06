@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\JMO Assets\Toony Gooch\Demo\AutoRotateObject.cs" />
      <Compile Include="Assets\Level1\Script\ActionBar.cs" />
      <Compile Include="Assets\Level1\Script\CameraFollow.cs" />
      <Compile Include="Assets\Level1\Script\CharacterCaracteristics.cs" />
@@ -64,10 +65,17 @@
      <Compile Include="Assets\Menu\Scripts\YellowGem.cs" />
      <None Include="Assets\Level1\Standard Assets\Toon Shading\Sources\Shaders\Toony-Basic.shader" />
      <None Include="Assets\Level1\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
+     <None Include="Assets\JMO Assets\Toony Gooch\Shaders\Toony_Gooch_RimOutlineHard.shader" />
+     <None Include="Assets\JMO Assets\Toony Gooch\!ToonyGooch Readme.txt" />
      <None Include="Assets\Level1\Standard Assets\Toon Shading\Sources\Shaders\Toony-BasicOutline.shader" />
      <None Include="Assets\Level1\Standard Assets\Water (Basic)\Sources\Shaders\FX-Water Simple.shader" />
+     <None Include="Assets\JMO Assets\!JMO Assets Readme.txt" />
+     <None Include="Assets\JMO Assets\Toony Gooch\Shaders\Toony_Gooch_RimLight.shader" />
      <None Include="Assets\Level1\Standard Assets\Toon Shading\Sources\Shaders\Toony-LightedOutline.shader" />
      <None Include="Assets\Level1\Standard Assets\Toon Shading\Sources\Shaders\Toony-Lighted.shader" />
+     <None Include="Assets\JMO Assets\Toony Gooch\Shaders\Toony_Gooch_RimAlpha.shader" />
+     <None Include="Assets\JMO Assets\Toony Gooch\Shaders\Toony_Gooch_RimOutline.shader" />
+     <None Include="Assets\JMO Assets\Toony Gooch\Shaders\Toony_Gooch.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
