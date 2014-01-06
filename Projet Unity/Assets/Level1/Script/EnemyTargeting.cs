@@ -59,46 +59,47 @@ public class EnemyTargeting : MonoBehaviour
 			}
 		}
 
+		AttackDist = -1;
+
 		if(selectedTarget)
-		{
 			AttackDist = Vector3.Distance(transform.position,selectedTarget.position);
-			if(Input.GetKeyDown(KeyCode.Alpha1))
-			{
+
+		if(Input.GetKeyDown(KeyCode.Alpha1))
+		{
+			if(selectedTarget)		
 				if(AttackDist < AttackRange)
 				{
 					transform.rotation = Quaternion.LookRotation(selectedTarget.transform.position);
 					Estocade();
 				}
-			}
-			else if(Input.GetKeyDown(KeyCode.Alpha2))
-			{
-				if(AttackDist < 8.0f)
-				{
-					Salve();
-				}
-			}
-			else if(Input.GetKeyDown(KeyCode.Alpha3))
-			{
-					Parade();
-			}
-			else if(Input.GetKeyDown(KeyCode.Alpha4))
-			{
-				if(AttackDist < AttackRange)
-				{
-					Estocade();
-				}
-			}
 
-			//Perte du target
-			if(AttackDist > 90)						//Eloignement
+		}
+		else if(Input.GetKeyDown(KeyCode.Alpha2))
+		{
+			Salve();
+		}
+		else if(Input.GetKeyDown(KeyCode.Alpha3))
+		{
+			Parade();
+		}
+		else if(Input.GetKeyDown(KeyCode.Alpha4))
+		{
+			if(AttackDist < AttackRange)
 			{
-				DeselectTarget();
-			}
-			if(Input.GetMouseButtonDown(1))			//Deselect manuel
-			{
-				DeselectTarget();
+				Pourfendeur();
 			}
 		}
+
+		//Perte du target
+		if(AttackDist > 90)						//Eloignement
+		{
+			DeselectTarget();
+		}
+		if(Input.GetMouseButtonDown(1))			//Deselect manuel
+		{
+			DeselectTarget();
+		}
+
 	}
 
 	void SelectTarget()
@@ -151,7 +152,15 @@ public class EnemyTargeting : MonoBehaviour
 		Debug.Log("Attack Salve de couteaux"); // Il faut une classe Enemi avec la vitalité pour faire ça durant 6 secondes
 
 		audio.PlayOneShot(SalveSound);
-		SalveHit();
+
+		foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy")){
+			if(Vector3.Angle(transform.forward, enemy.transform.position) < 120 ) // Si dans un cone
+				if(Vector3.Distance(transform.position, enemy.transform.position) < 5.0f){
+					Debug.Log ("Touché");
+					enemy.GetComponent<EnnemyAI>().UpdateVitality(-((120 * PlayerCaract.GetForce())/100));
+				}
+		}
+
 		Invoke("SalveHit", 1);
 		Invoke("SalveHit", 2);
 		Invoke("SalveHit", 3);
@@ -174,15 +183,28 @@ public class EnemyTargeting : MonoBehaviour
 
 		Debug.Log("Parade");
 
+		Instantiate(Resources.Load<GameObject>("Prefab/Sparkle Rising"), transform.position, transform.rotation);
 		PlayerCaract.setParade(true);
 		//myEnemyScript.SetVitality(myEnemyLife);
 	}
 
 	void Pourfendeur()
 	{
-		if(!barreAction.useSf(10))
+		if(!barreAction.useVap(10))
 			return;
 
+		Instantiate(Resources.Load<GameObject>("Prefab/explosion"), transform.position, transform.rotation);
+
+
+		foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy")){
+			if(Vector3.Distance(transform.position, enemy.transform.position) < 8.0f){
+				Debug.Log ("Touché");
+				Instantiate(Resources.Load<GameObject>("Prefab/explosion"), enemy.transform.position, enemy.transform.rotation);
+				enemy.GetComponent<EnnemyAI>().UpdateVitality(-((120 * PlayerCaract.GetForce())/100));
+			}
+		}
+
+			//Instantiate(respawnPrefab, respawn.transform.position, respawn.transform.rotation) as GameObject;
 
 	}
 }

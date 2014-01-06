@@ -128,7 +128,7 @@ public class EnnemyAI : MonoBehaviour
 		if(Countdown)
 		{
 			HunTime -= Time.deltaTime;
-			Debug.Log(HunTime);
+			//Debug.Log(HunTime);
 			if(HunTime < 0)
 			{
 				Countdown = false;
@@ -303,5 +303,10 @@ public class EnnemyAI : MonoBehaviour
 	public float GetVitality()
 	{
 		return EnemyVitality;
+	}
+
+	public void UpdateVitality( float value )
+	{
+		EnemyVitality += value;
 	}
 }

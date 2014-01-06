@@ -29,7 +29,7 @@ public class ActionBar : MonoBehaviour
 	public float PlayerLife;
 	private float max_NbSf = 100;
 	private float max_NbVap = 100;
-	public float NbSf = 0;
+	private float NbSf = 100;
 	private float NbVap = 0;
 
 	private float VaporineDelay = 10;
@@ -73,6 +73,14 @@ public class ActionBar : MonoBehaviour
 		if(NbVap > max_NbVap)
 			NbVap = max_NbVap;
 
+
+		if(NbSf < 0)
+			NbSf = 0;
+		
+		if(NbVap < 0)
+			NbVap = 0;
+
+
 		SfFactor = (100 - NbSf)/100*180;
 		VapFactor = (100 - NbVap)/100*180;
 
@@ -112,12 +120,12 @@ public class ActionBar : MonoBehaviour
 
 	void IncreaseVap()
 	{
-		NbVap += 10;
+		NbVap -= 1;
 	}
 
 	void IncreaseSf()
 	{
-		NbSf += 10;
+		NbSf += 1;
 	}
 
 	public bool useVap(int nbUse)
@@ -126,6 +134,7 @@ public class ActionBar : MonoBehaviour
 			return false;
 
 		NbVap -= nbUse;
+		NbSf += nbUse; // Pour l'équilibre
 		return true;
 	}
 
@@ -134,7 +143,8 @@ public class ActionBar : MonoBehaviour
 		if(NbSf < nbUse)
 			return false;
 		
-		NbSf-= nbUse;
+		NbSf -= nbUse;
+		NbVap += nbUse; // Pour l'équilibre
 		return true;
 	}
 }
