@@ -66,6 +66,7 @@ public class EnemyTargeting : MonoBehaviour
 			{
 				if(AttackDist < AttackRange)
 				{
+					transform.rotation = Quaternion.LookRotation(selectedTarget.transform.position);
 					Estocade();
 				}
 			}
@@ -149,6 +150,7 @@ public class EnemyTargeting : MonoBehaviour
 
 		Debug.Log("Attack Salve de couteaux"); // Il faut une classe Enemi avec la vitalité pour faire ça durant 6 secondes
 
+		audio.PlayOneShot(SalveSound);
 		SalveHit();
 		Invoke("SalveHit", 1);
 		Invoke("SalveHit", 2);
@@ -159,7 +161,7 @@ public class EnemyTargeting : MonoBehaviour
 	}
 
 	void SalveHit(){
-		audio.PlayOneShot(SalveSound);
+
 		myEnemyLife -= (25 * PlayerCaract.GetForce())/100; 
 		myEnemyScript.SetVitality(myEnemyLife);
 	}
