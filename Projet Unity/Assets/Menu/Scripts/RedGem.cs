@@ -127,7 +127,8 @@ public class RedGem : MonoBehaviour
 		GemTitle.text = "Extras";																		//Initilaisation du texte de la Gemme
 		GemLight.color = OppositeColor;																	//Changement de couleur
 		GemPartEmitter.emit = true;																		//Lancement des particules
-		GemTitle.renderer.enabled = true;																//Affichage du text																					
+		GemTitle.renderer.enabled = true;																//Affichage du text
+		this.renderer.material.color = OppositeColor;																				
 	}
 	
 	void OnMouseExit()
@@ -136,6 +137,7 @@ public class RedGem : MonoBehaviour
 		GemPartEmitter.emit = false;																	//Arret des particules
 		GemPartEmitter.ClearParticles();																//Suppresion des particules restantes sur l'écran
 		GemTitle.renderer.enabled = false;																//Dissimulation du text
+		this.renderer.material.color = InitialColor;
 	}
 	
 	void OnMouseDown()
