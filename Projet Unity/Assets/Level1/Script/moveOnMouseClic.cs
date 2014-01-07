@@ -7,7 +7,7 @@ public class moveOnMouseClic : MonoBehaviour {
 	private Vector3 destinationPosition;		// The destination Point
 	private float destinationDistance;			// The distance between myTransform and destinationPosition
 	
-	public float moveSpeed;						// The Speed the character will move
+	public static float moveSpeed;						// The Speed the character will move
 	
 	
 	
@@ -24,8 +24,11 @@ public class moveOnMouseClic : MonoBehaviour {
 		if(destinationDistance < .5f){		// To prevent shakin behavior when near destination
 			moveSpeed = 0;
 		}
-		else if(destinationDistance > .5f){			// To Reset Speed to default
-			moveSpeed = 3;
+		else if(destinationDistance == .5f){			// To Reset Speed to default
+			moveSpeed = 5;
+		}
+		else if( destinationDistance > .5f){			// To Reset Speed to default
+			moveSpeed = 20;
 		}
 		
 		
