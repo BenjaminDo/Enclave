@@ -126,7 +126,8 @@ public class YellowGem : MonoBehaviour
 		GemTitle.text = "Options";																	//Initilaisation du texte de la Gemme
 		GemLight.color = OppositeColor;																//Changement de couleur
 		GemPartEmitter.emit = true;																	//Lancement des particules
-		GemTitle.renderer.enabled = true;															//Affichage du texte																				
+		GemTitle.renderer.enabled = true;															//Affichage du texte
+		this.renderer.material.color = OppositeColor;																			
 	}
 	
 	void OnMouseExit()
@@ -135,6 +136,7 @@ public class YellowGem : MonoBehaviour
 		GemPartEmitter.emit = false;																//Arret des particules
 		GemPartEmitter.ClearParticles();															//Suppresion des particules restantes sur l'écran
 		GemTitle.renderer.enabled = false;															//Dissimulation du texte
+		this.renderer.material.color = InitialColor;
 	}
 	
 	void OnMouseDown()

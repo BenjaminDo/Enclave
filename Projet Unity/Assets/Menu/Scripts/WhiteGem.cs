@@ -128,7 +128,8 @@ public class WhiteGem : MonoBehaviour
 		GemTitle.text = "Quitter";																	//Initilaisation du texte de la Gemme
 		GemLight.color = OppositeColor;																//Changement de couleur
 		GemPartEmitter.emit = true;																	//Lancement des particules
-		GemTitle.renderer.enabled = true;															//Affichage du text																					
+		GemTitle.renderer.enabled = true;															//Affichage du text
+		this.renderer.material.color = OppositeColor;																				
 	}
 	
 	void OnMouseExit()
@@ -137,6 +138,7 @@ public class WhiteGem : MonoBehaviour
 		GemPartEmitter.emit = false;																//Arret des particules
 		GemPartEmitter.ClearParticles();															//Suppresion des particules restantes sur l'écran
 		GemTitle.renderer.enabled = false;															//Dissimulation du texte
+		this.renderer.material.color = InitialColor;
 	}
 	
 	void OnMouseDown()
