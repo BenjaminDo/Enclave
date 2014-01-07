@@ -1,15 +1,17 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Level1\Script\CharacterCaracteristics.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Menu\Scripts\YellowGem.cs">
     <Files>
-      <File FileName="Assets\Level1\Script\CharacterCaracteristics.cs" Line="88" Column="1" />
-      <File FileName="Assets\Level1\Script\moveOnMouseClic.cs" Line="30" Column="35" />
+      <File FileName="Assets\Menu\Scripts\BlueGem.cs" Line="140" Column="77" />
+      <File FileName="Assets\Menu\Scripts\BlackGem.cs" Line="1" Column="1" />
+      <File FileName="Assets\Menu\Scripts\RedGem.cs" Line="1" Column="1" />
+      <File FileName="Assets\Menu\Scripts\VioletGem.cs" Line="1" Column="1" />
+      <File FileName="Assets\Menu\Scripts\WhiteGem.cs" Line="1" Column="1" />
+      <File FileName="Assets\Menu\Scripts\YellowGem.cs" Line="139" Column="47" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="C:\Users\Timothée\Documents\GitHub\Enclave\Projet Unity\Assets\Level1\Script\CharacterCaracteristics.cs" line="88" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

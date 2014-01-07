@@ -134,6 +134,7 @@ public class VioletGem : MonoBehaviour
 		GemLight.color = OppositeColor;																	//Changement de couleur
 		GemPartEmitter.emit = true;																		//Lancement des particules
 		GemTitle.renderer.enabled = true;
+		this.renderer.material.color = OppositeColor;
 
 	}
 	
@@ -143,6 +144,7 @@ public class VioletGem : MonoBehaviour
 		GemPartEmitter.emit = false;																	//Arret des particules
 		GemPartEmitter.ClearParticles();																//Suppresion des particules restantes sur l'écran
 		GemTitle.renderer.enabled = false;
+		this.renderer.material.color = InitialColor;
 	}
 	
 	void OnMouseDown()
