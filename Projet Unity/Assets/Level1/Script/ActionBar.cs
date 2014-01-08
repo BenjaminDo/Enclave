@@ -161,7 +161,7 @@ public class ActionBar : MonoBehaviour
 	public bool useVap(int nbUse)
 	{
 		if(NbVap < nbUse){
-			SfText =  Instantiate(Resources.Load("Prefab/SfUse"),new Vector3(0.3f,0.6f,0f), Quaternion.identity) as GameObject;
+			SfText =  Instantiate(Resources.Load("Prefab/SfUse"),new Vector3(0.4f,0.6f,0f), Quaternion.identity) as GameObject;
 			SfText.guiText.color = Color.red;
 			SfText.guiText.text = "Pas assez de Vaporine";
 			return false;
@@ -175,7 +175,7 @@ public class ActionBar : MonoBehaviour
 	public bool useSf(int nbUse)
 	{
 		if(NbSf < nbUse){
-			SfText =  Instantiate(Resources.Load("Prefab/SfUse"),new Vector3(0.2f,0.6f,0f), Quaternion.identity) as GameObject;
+			SfText =  Instantiate(Resources.Load("Prefab/SfUse"),new Vector3(0.4f,0.6f,0f), Quaternion.identity) as GameObject;
 			SfText.guiText.text = "Pas assez de Sang Froid";
 			return false;
 		}

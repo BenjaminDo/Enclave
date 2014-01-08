@@ -10,7 +10,7 @@ public class Achivement : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
 		if(!made)
 		{
-			Text =  Instantiate(Resources.Load("Prefab/Text"),new Vector3(0.02f,0.5f,0f), Quaternion.identity) as GameObject;
+			Text =  Instantiate(Resources.Load("Prefab/Text"),new Vector3(0.4f,0.6f,0f), Quaternion.identity) as GameObject;
 			
 			Text.guiText.text = strAchivement;
 		}

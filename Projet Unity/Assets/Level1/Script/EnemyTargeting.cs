@@ -191,7 +191,7 @@ public class EnemyTargeting : MonoBehaviour
 		if(lastTimeSalve > Time.realtimeSinceStartup - 5.0f)
 		{
 			//Ajouter Ce sort n'est pas encore disponible
-			SfText =  Instantiate(Resources.Load("Prefab/SfUse"),new Vector3(0.415f,0.20f,0f), Quaternion.identity) as GameObject;
+			SfText =  Instantiate(Resources.Load("Prefab/SfUse"),new Vector3(0.4f,0.20f,0f), Quaternion.identity) as GameObject;
 			SfText.guiText.color = Color.red;
 			SfText.guiText.text = "Ce sort n'est pas encore disponible";
 			return;
@@ -245,7 +245,7 @@ public class EnemyTargeting : MonoBehaviour
 		if(lastTimeParade > Time.realtimeSinceStartup - 4.0f)
 		{
 			//Ajouter Ce sort n'est pas encore disponible
-			SfText =  Instantiate(Resources.Load("Prefab/SfUse"),new Vector3(0.415f,0.20f,0f), Quaternion.identity) as GameObject;
+			SfText =  Instantiate(Resources.Load("Prefab/SfUse"),new Vector3(0.4f,0.20f,0f), Quaternion.identity) as GameObject;
 			SfText.guiText.color = Color.red;
 			SfText.guiText.text = "Ce sort n'est pas encore disponible";
 			return;
@@ -268,7 +268,7 @@ public class EnemyTargeting : MonoBehaviour
 		if(lastTimePourfendeur > Time.realtimeSinceStartup - 10.0f)
 		{
 			//Ajouter Ce sort n'est pas encore disponible
-			SfText =  Instantiate(Resources.Load("Prefab/SfUse"),new Vector3(0.415f,0.20f,0f), Quaternion.identity) as GameObject;
+			SfText =  Instantiate(Resources.Load("Prefab/SfUse"),new Vector3(0.4f,0.20f,0f), Quaternion.identity) as GameObject;
 			SfText.guiText.color = Color.red;
 			SfText.guiText.text = "Ce sort n'est pas encore disponible";
 			return;
