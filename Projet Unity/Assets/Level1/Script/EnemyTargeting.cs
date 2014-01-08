@@ -6,6 +6,7 @@ public class EnemyTargeting : MonoBehaviour
 
 	private CharacterCaracteristics PlayerCaract;
 	private ActionBar barreAction;
+	private GameObject SfText;
 
 	//Bruitage
 	private AudioClip SalveSound;
@@ -13,6 +14,7 @@ public class EnemyTargeting : MonoBehaviour
 
 	//Enemy 
 	private Transform selectedTarget;
+	private Transform selectIcon;
 
 	//Enemy Life
 	private Texture2D EmptyEnemyLife;
@@ -22,6 +24,13 @@ public class EnemyTargeting : MonoBehaviour
 	//Fight variables
 	private float AttackRange;
 	public float AttackDist;
+
+	//CoolDown
+	private float lastTimeEstocade;
+	private float lastTimeSalve;
+	private float lastTimePourfendeur;
+	private float lastTimeParade;
+	private float lastTime;
 
 	//Scripts
 	private EnnemyAI myEnemyScript;
@@ -40,8 +49,15 @@ public class EnemyTargeting : MonoBehaviour
 		SalveSound = Resources.Load("Sound/whoosh3") as AudioClip;
 		EstocadeSound = Resources.Load("Sound/épée coupe") as AudioClip;
 
-		AttackRange = 3;
-	}
+
+		AttackRange = 6;
+
+		lastTimeEstocade = 0f;
+		lastTimeSalve = 0f;
+		lastTimePourfendeur = 0f;
+		lastTimeParade = 0f;
+		lastTime = 0f;
+	} 
 	
 	// Update is called once per frame
 	void Update () 
@@ -69,7 +85,6 @@ public class EnemyTargeting : MonoBehaviour
 			if(selectedTarget)		
 				if(AttackDist < AttackRange)
 				{
-					transform.rotation = Quaternion.LookRotation(selectedTarget.transform.position);
 					Estocade();
 				}
 
@@ -104,7 +119,9 @@ public class EnemyTargeting : MonoBehaviour
 
 	void SelectTarget()
 	{
-		selectedTarget.renderer.material.color = Color.red;
+		//selectedTarget.renderer.material.color = Color.red;
+		selectIcon = selectedTarget.FindChild("Quad");
+		selectIcon.renderer.enabled = true;
 		myEnemyScript = selectedTarget.GetComponent<EnnemyAI>();
 		myEnemyLife = myEnemyScript.GetVitality();
 	}
@@ -113,8 +130,11 @@ public class EnemyTargeting : MonoBehaviour
 	{
 		if (selectedTarget)
 		{
-			selectedTarget.renderer.material.color = Color.white;
+			//selectedTarget.renderer.material.color = Color.white;
+			selectIcon = selectedTarget.FindChild("Quad");
+			selectIcon.transform.renderer.enabled = false;
 			selectedTarget = null;
+			selectIcon = null;
 		}
 	}
 
@@ -126,7 +146,7 @@ public class EnemyTargeting : MonoBehaviour
 			GUI.DrawTexture(new Rect(Screen.width / 2 - 150, 0 ,300,50), EmptyEnemyLife);
 
 			//Foreground
-			GUI.BeginGroup(new Rect(Screen.width / 2 - 150, 0 ,(myEnemyLife * 300 / 900),50));
+			GUI.BeginGroup(new Rect(Screen.width / 2 - 150, 0 ,(myEnemyLife * 300 / 400),50));
 			GUI.DrawTexture(new Rect(0,0,300,50),EnemyLife);
 			GUI.EndGroup();
 		}
@@ -134,8 +154,19 @@ public class EnemyTargeting : MonoBehaviour
 
 	void Estocade()
 	{
-		if(!barreAction.useSf(3))
+		if(lastTimeEstocade > Time.realtimeSinceStartup - 0.5f){
+			//Ajouter Ce sort n'est pas encore disponible
+			SfText =  Instantiate(Resources.Load("Prefab/SfUse"),new Vector3(0.415f,0.20f,0f), Quaternion.identity) as GameObject;
+			SfText.guiText.color = Color.red;
+			SfText.guiText.text = "Ce sort n'est pas encore disponible";
 			return;
+		}
+
+		if(!barreAction.useSf(1))
+			return;
+
+		lastTimeEstocade = Time.realtimeSinceStartup;
+
 
 		Debug.Log("Attack Estocade");
 
@@ -146,8 +177,19 @@ public class EnemyTargeting : MonoBehaviour
 
 	void Salve()
 	{
-		if(!barreAction.useVap(20))
+		if(lastTimeSalve > Time.realtimeSinceStartup - 5.0f)
+		{
+			//Ajouter Ce sort n'est pas encore disponible
+			SfText =  Instantiate(Resources.Load("Prefab/SfUse"),new Vector3(0.415f,0.20f,0f), Quaternion.identity) as GameObject;
+			SfText.guiText.color = Color.red;
+			SfText.guiText.text = "Ce sort n'est pas encore disponible";
 			return;
+		}
+
+		if(!barreAction.useVap(2))
+			return;
+
+		lastTimeSalve=Time.realtimeSinceStartup;
 
 		Debug.Log("Attack Salve de couteaux"); // Il faut une classe Enemi avec la vitalité pour faire ça durant 6 secondes
 
@@ -178,9 +220,19 @@ public class EnemyTargeting : MonoBehaviour
 
 	void Parade()
 	{
-		
-		if(!barreAction.useVap(10))
+		if(lastTimeParade > Time.realtimeSinceStartup - 4.0f)
+		{
+			//Ajouter Ce sort n'est pas encore disponible
+			SfText =  Instantiate(Resources.Load("Prefab/SfUse"),new Vector3(0.415f,0.20f,0f), Quaternion.identity) as GameObject;
+			SfText.guiText.color = Color.red;
+			SfText.guiText.text = "Ce sort n'est pas encore disponible";
 			return;
+		}
+
+		if(!barreAction.useVap(1))
+			return;
+
+		lastTimeParade=Time.realtimeSinceStartup;
 
 		Debug.Log("Parade");
 
@@ -191,8 +243,19 @@ public class EnemyTargeting : MonoBehaviour
 
 	void Pourfendeur()
 	{
-		if(!barreAction.useVap(10))
+		if(lastTimePourfendeur > Time.realtimeSinceStartup - 10.0f)
+		{
+			//Ajouter Ce sort n'est pas encore disponible
+			SfText =  Instantiate(Resources.Load("Prefab/SfUse"),new Vector3(0.415f,0.20f,0f), Quaternion.identity) as GameObject;
+			SfText.guiText.color = Color.red;
+			SfText.guiText.text = "Ce sort n'est pas encore disponible";
 			return;
+		}
+
+		if(!barreAction.useSf(1))
+			return;
+		
+		lastTimePourfendeur=Time.realtimeSinceStartup;
 
 		Instantiate(Resources.Load<GameObject>("Prefab/explosion"), transform.position, transform.rotation);
 

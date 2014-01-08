@@ -9,8 +9,8 @@ public class TextSpawn : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		scroll = 0.05f;
-		duration = 1.5f;
+		scroll = 0.03f;
+		duration = 0.7f;
 		alpha = 1.0f;
 	}
 	
@@ -21,7 +21,7 @@ public class TextSpawn : MonoBehaviour {
 			float ActualPos = transform.position.y;
 			ActualPos += scroll * Time.deltaTime;
 			alpha -= Time.deltaTime / duration;
-			gameObject.transform.position = new Vector3(0.5f,ActualPos,0.5f);
+			gameObject.transform.position = new Vector3(transform.position.x,ActualPos,0.5f);
 		}
 		else
 		{

@@ -5,6 +5,7 @@ public class PauseMenu : MonoBehaviour {
 
 	public GUISkin mySkin;
 	private AudioClip Music;
+	private AudioSource Wind;
 
 	private Rect windowRect = new Rect (Screen.width/2 - 400/2, Screen.height/2 - 500/2, 400, 500);
 
@@ -29,6 +30,7 @@ public class PauseMenu : MonoBehaviour {
 		Mouse = Resources.Load("GUI/Commandes/mouse") as Texture2D;
 
 		Music = Resources.Load("Sound/FirstAttempt-bolero") as AudioClip;
+		Wind = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
 
 	}
 	// Use this for initialization
@@ -53,6 +55,8 @@ public class PauseMenu : MonoBehaviour {
 		{
 			if (Input.GetKeyDown (KeyCode.P)) 
 			{
+				Wind.audio.Pause();
+
 				audio.loop = true;
 				audio.clip = Music;
 				audio.Play();
@@ -83,6 +87,7 @@ public class PauseMenu : MonoBehaviour {
 		{
 			audio.Stop();
 			audio.loop = false;
+			Wind.audio.Play();
 
 			PauseM = false;
 			Pause = false;

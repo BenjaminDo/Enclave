@@ -28,7 +28,7 @@ public class moveOnMouseClic : MonoBehaviour {
 			moveSpeed = 5;
 		}
 		else if( destinationDistance > .5f){			// To Reset Speed to default
-			moveSpeed = 20;
+			moveSpeed = 10;
 		}
 		
 		

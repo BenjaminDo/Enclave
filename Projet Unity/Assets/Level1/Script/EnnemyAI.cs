@@ -28,15 +28,15 @@ public class EnnemyAI : MonoBehaviour
 	//Param for Player
 	private GameObject Player;
 	private CharacterCaracteristics PlayerCaract;
-	private float PlayerLife;
+	public float PlayerLife;
 
 	//Stats
-	private bool Wander;
-	private bool Hunt;
-	private bool Atack;
-	private bool Countdown;
-	private bool ComeBack;
-	private Vector3 InitialPos;
+	public bool Wander;
+	public bool Hunt;
+	public bool Atack;
+	public bool Countdown;
+	public bool ComeBack;
+	public Vector3 InitialPos;
 
 	private RaycastHit hit;
 
@@ -46,6 +46,7 @@ public class EnnemyAI : MonoBehaviour
 	//Param for Movement
 	private Vector3 TargetDir;
 	private Quaternion TargetRot;
+	public float Vitesse;
 
 	//Param for detection
 	private float DetectDist;
@@ -54,21 +55,22 @@ public class EnnemyAI : MonoBehaviour
 	private float AttackRange;
 
 	//Decompte
+	private float decompte=5;
 	private float HunTime;
-	private float AttackDelay = 3;
+	private float AttackDelay = 1;
 
 	void Awake()
 	{
 		SetValues();
 		InitialPos = transform.position;
-		Player = GameObject.FindGameObjectWithTag("Player");
-		PlayerCaract = Player.GetComponent("CharacterCaracteristics") as CharacterCaracteristics;
-		PlayerLife = PlayerCaract.GetVitality();
+
 	}
 
 	// Use this for initialization
 	void Start () 
 	{
+		Player = GameObject.FindGameObjectWithTag("Player");
+		PlayerCaract = Player.GetComponent("CharacterCaracteristics") as CharacterCaracteristics;
 		Wandering();
 		InvokeRepeating("Attack", 2, AttackDelay);
 
@@ -76,11 +78,12 @@ public class EnnemyAI : MonoBehaviour
 
 	void SetValues()
 	{
-		EnemyVitality = 900;
+		EnemyVitality = 400;
 		Speed = 0.5f;
-		DetectRange = 8.0f;
-		AttackRange = 2.0f;
-		HunTime = 30;
+		DetectRange = 20.0f;
+		AttackRange = 6.0f;
+		HunTime = decompte;
+		if(Vitesse==0)Vitesse=5;
 
 		Wander = true;
 		Hunt = false;
@@ -116,12 +119,16 @@ public class EnnemyAI : MonoBehaviour
 
 		if(Hunt)
 		{
+
 			TargetDir = (Player.transform.position - transform.position).normalized;
 			TargetDist = Vector3.Distance(transform.position,Player.transform.position);
 			if(TargetDist > AttackRange)
 			{
+				ComeBack = false;
 				Hunting();
 			}
+			if(TargetDist < DetectDist)
+				HunTime=decompte;
 		}
 
 
@@ -142,11 +149,11 @@ public class EnnemyAI : MonoBehaviour
 			TargetDir = (InitialPos - transform.position).normalized;
 			ComingHome();
 			TargetDist = Vector3.Distance(transform.position,InitialPos);
-			Debug.Log(TargetDist);
+		
 			if(TargetDist < 1)
 			{
 				ComeBack = false;
-				Wander = true;
+				Wander = false;
 				SetValues();
 				Wandering();
 			}
@@ -155,6 +162,7 @@ public class EnnemyAI : MonoBehaviour
 		DetectDist = Vector3.Distance(transform.position, Player.transform.position);
 		if(DetectDist < DetectRange)
 		{
+			PlayerLife = PlayerCaract.GetVitality();
 			//Debug.Log("Player detected");
 			if(PlayerLife > 0)
 			{
@@ -167,65 +175,25 @@ public class EnnemyAI : MonoBehaviour
 		{
 			Atack = true;
 			Countdown = false;
-			Hunt = false;
+			Hunt = true;
 
 		}
+		else
+			Atack =false;
 	}
 
 	void Wandering()
 	{
-		Wandir =  InitialPos + Random.insideUnitSphere * 5;
-		Wandir.y = 30.5f;
-		transform.LookAt(Wandir);
+		Wandir =  InitialPos + Random.insideUnitSphere * 30;
+		//Wandir.y = 30.5f;
+		//transform.LookAt(Wandir);
 	}
 
 	void Hunting()
 	{
-		// check for forward raycast
-		if (Physics.Raycast(transform.position, transform.forward, out hit, 5))
-		{
-			if (hit.transform != this.transform)
-			{
-				Debug.DrawLine (transform.position, hit.point, Color.white);
-				
-				TargetDir += hit.normal * 20;
-			}
-		}
-		
-		// Side raycasts   
-		Vector3 leftRay = transform.position + new Vector3(-0.125f, 0f, 0f);
-		Vector3 rightRay = transform.position + new Vector3(0.125f, 0f, 0f);
-		
-		// check for leftRay raycast
-		if (Physics.Raycast(leftRay, transform.forward, out hit, 5)) // 20 is raycast distance
-		{
-			if (hit.transform != this.transform)
-			{
-				Debug.DrawLine (leftRay, hit.point, Color.red);
-				
-				TargetDir += hit.normal * 20; // 20 is force to repel by
-			}
-		}
-		
-		// check for rightRay raycast
-		if (Physics.Raycast(rightRay, transform.forward, out hit, 5)) // 20 is raycast distance
-		{
-			if (hit.transform != this.transform)
-			{
-				Debug.DrawLine (rightRay, hit.point, Color.green);
-				
-				TargetDir += hit.normal * 20; // 20 is force to repel by
-			}
-		}
-
-		// Deplacements
-		
-		// rotation
-		TargetRot = Quaternion.LookRotation (TargetDir);
-		
 		//Avancé et rotation
-		transform.rotation = Quaternion.Slerp (transform.rotation, TargetRot, Time.deltaTime);
-		transform.position += transform.forward * (2 * Time.deltaTime);
+		transform.LookAt(Player.transform);
+		transform.position += transform.forward * (Vitesse * Time.deltaTime);
 	}
 
 	void ComingHome()
@@ -235,7 +203,7 @@ public class EnnemyAI : MonoBehaviour
 		{
 			if (hit.transform != this.transform)
 			{
-				Debug.DrawLine (transform.position, hit.point, Color.white);
+
 				
 				TargetDir += hit.normal * 20;
 			}
@@ -250,7 +218,7 @@ public class EnnemyAI : MonoBehaviour
 		{
 			if (hit.transform != this.transform)
 			{
-				Debug.DrawLine (leftRay, hit.point, Color.red);
+			
 				
 				TargetDir += hit.normal * 20; // 20 is force to repel by
 			}
@@ -261,7 +229,7 @@ public class EnnemyAI : MonoBehaviour
 		{
 			if (hit.transform != this.transform)
 			{
-				Debug.DrawLine (rightRay, hit.point, Color.green);
+			
 				
 				TargetDir += hit.normal * 20; // 20 is force to repel by
 			}
@@ -274,7 +242,7 @@ public class EnnemyAI : MonoBehaviour
 		
 		//Avancé et rotation
 		transform.rotation = Quaternion.Slerp (transform.rotation, TargetRot, Time.deltaTime);
-		transform.position += transform.forward * (2 * Time.deltaTime);
+		transform.position += transform.forward * (Vitesse * Time.deltaTime);
 
 	}
 
@@ -282,8 +250,8 @@ public class EnnemyAI : MonoBehaviour
 	{
 		if(Atack)
 		{
-			PlayerLife -= 5;
-			PlayerCaract.SetVitality(PlayerLife);
+			PlayerCaract.SetDeltaVitality(-5);
+			return;
 		}
 		else{
 			return;

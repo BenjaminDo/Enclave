@@ -15,6 +15,7 @@ public class CharacterCaracteristics : MonoBehaviour
 	private float LifeDelay = 10;
 	
 	private bool parade = false;
+	private GameObject SfText;
 	
 	//Animation
 	
@@ -157,8 +158,12 @@ public class CharacterCaracteristics : MonoBehaviour
 	/*** Avec value le chagment ***/
 	public void SetDeltaVitality( float value )
 	{
-		if(parade){
+		if(value < 0 && parade){
 			parade = false;
+			SfText =  Instantiate(Resources.Load("Prefab/SfUse"),new Vector3(0.43f,0.32f,0f), Quaternion.identity) as GameObject;
+			SfText.guiText.fontSize = 50;
+			SfText.guiText.color = new Color32(13,157,20,255);
+			SfText.guiText.text = "PAAARAAAAAADE !!!";
 			return;
 		}
 		
