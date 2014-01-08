@@ -39,14 +39,15 @@
 	<Reference Include="System.Core" />
 	<Reference Include="System.Xml.Linq" />
 	<Reference Include="UnityEngine">
-	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>D:/Programmes/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>D:/Programmes/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\JMO Assets\Toony Gooch\Demo\AutoRotateObject.cs" />
+     <Compile Include="Assets\Level1\Script\Achivement.cs" />
      <Compile Include="Assets\Level1\Script\ActionBar.cs" />
      <Compile Include="Assets\Level1\Script\CameraFollow.cs" />
      <Compile Include="Assets\Level1\Script\CharacterCaracteristics.cs" />
@@ -54,6 +55,8 @@
      <Compile Include="Assets\Level1\Script\EnemyTargeting.cs" />
      <Compile Include="Assets\Level1\Script\EnnemyAI.cs" />
      <Compile Include="Assets\Level1\Script\PauseMenu.cs" />
+     <Compile Include="Assets\Level1\Script\PuitRegen.cs" />
+     <Compile Include="Assets\Level1\Script\Quete.cs" />
      <Compile Include="Assets\Level1\Script\Radar.cs" />
      <Compile Include="Assets\Level1\Script\SpawnCoord.cs" />
      <Compile Include="Assets\Level1\Script\TextSpawn.cs" />

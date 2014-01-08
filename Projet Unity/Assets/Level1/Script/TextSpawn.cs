@@ -3,15 +3,13 @@ using System.Collections;
 
 public class TextSpawn : MonoBehaviour {
 
-	private float scroll;
-	private float duration;
-	private float alpha;
+	public float scroll=0.03f;
+	public float duration=0.7f;
+	public float alpha=1f;
 
 	// Use this for initialization
 	void Start () {
-		scroll = 0.03f;
-		duration = 0.7f;
-		alpha = 1.0f;
+		//scroll = 0.03f;
 	}
 	
 	// Update is called once per frame

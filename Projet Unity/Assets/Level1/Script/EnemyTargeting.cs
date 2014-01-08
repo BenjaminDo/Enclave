@@ -167,6 +167,17 @@ public class EnemyTargeting : MonoBehaviour
 
 		lastTimeEstocade = Time.realtimeSinceStartup;
 
+		Plane playerPlane = new Plane(Vector3.up, transform.position);
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		float hitdist = 0.0f;
+		Vector3 destinationPosition;
+		
+		if (playerPlane.Raycast(ray, out hitdist)) {
+			Vector3 targetPoint = ray.GetPoint(hitdist);
+			destinationPosition = ray.GetPoint(hitdist);
+			Quaternion targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
+			transform.rotation = targetRotation;
+		}
 
 		Debug.Log("Attack Estocade");
 
@@ -193,6 +204,17 @@ public class EnemyTargeting : MonoBehaviour
 
 		Debug.Log("Attack Salve de couteaux"); // Il faut une classe Enemi avec la vitalité pour faire ça durant 6 secondes
 
+		Plane playerPlane = new Plane(Vector3.up, transform.position);
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		float hitdist = 0.0f;
+		Vector3 destinationPosition;
+		
+		if (playerPlane.Raycast(ray, out hitdist)) {
+			Vector3 targetPoint = ray.GetPoint(hitdist);
+			destinationPosition = ray.GetPoint(hitdist);
+			Quaternion targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
+			transform.rotation = targetRotation;
+		}
 	
 		audio.PlayOneShot(SalveSound);
 
