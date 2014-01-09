@@ -54,6 +54,7 @@
      <Compile Include="Assets\Level1\Script\CubiSpawner.cs" />
      <Compile Include="Assets\Level1\Script\EnemyTargeting.cs" />
      <Compile Include="Assets\Level1\Script\EnnemyAI.cs" />
+     <Compile Include="Assets\Level1\Script\Feu.cs" />
      <Compile Include="Assets\Level1\Script\PauseMenu.cs" />
      <Compile Include="Assets\Level1\Script\PuitRegen.cs" />
      <Compile Include="Assets\Level1\Script\Quete.cs" />
