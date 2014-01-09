@@ -156,6 +156,9 @@ public class CharacterCaracteristics : MonoBehaviour
 	
 	void Death()
 	{
+		AudioClip Sound = Resources.Load("Sound/mort_hero") as AudioClip;
+		audio.PlayOneShot(Sound);
+
 		Application.LoadLevel(0);
 	}
 	

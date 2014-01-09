@@ -1,8 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Level1\Script\ActionBar.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Level1\Script\CharacterCaracteristics.cs">
     <Files>
+      <File FileName="Assets\Level1\Script\EnemyTargeting.cs" Line="199" Column="3" />
       <File FileName="Assets\Level1\Script\ActionBar.cs" Line="128" Column="3" />
+      <File FileName="Assets\Level1\Script\CharacterCaracteristics.cs" Line="161" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
