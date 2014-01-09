@@ -32,7 +32,7 @@ public class EnemyTargeting : MonoBehaviour
 	private float lastTimeParade;
 	private float lastTimeHachoir;
 
-	private int potion=5;
+	private int potion=20;
 
 	//Scripts
 	private EnnemyAI myEnemyScript;
@@ -114,10 +114,12 @@ public class EnemyTargeting : MonoBehaviour
 			Debug.Log ("Sisi");
 			if(potion>0){
 				potion--;
-				PlayerCaract.SetVitality(30 + PlayerCaract.GetVitality()); // Pour ne pas etre parade
+				PlayerCaract.SetDeltaVitality(30 + PlayerCaract.GetVitality()); // Pour ne pas etre parade
 				SfText =  Instantiate(Resources.Load("Prefab/SfUse"),new Vector3(0.465f,0.20f,0f), Quaternion.identity) as GameObject;
 				SfText.guiText.color = Color.green;
 				SfText.guiText.text = "+30 Vie";
+
+
 			}
 		}
 
@@ -131,6 +133,9 @@ public class EnemyTargeting : MonoBehaviour
 			DeselectTarget();
 		}
 
+		SfText =  Instantiate(Resources.Load("Prefab/MAbite"),new Vector3(0.92f,0.96f,0f), Quaternion.identity) as GameObject;
+		SfText.guiText.color = Color.green;
+		SfText.guiText.text = "Potion : " + potion;
 	}
 
 	void SelectTarget()
@@ -161,7 +166,7 @@ public class EnemyTargeting : MonoBehaviour
 			GUI.DrawTexture(new Rect(Screen.width / 2 - 150, 0 ,300,50), EmptyEnemyLife);
 
 			//Foreground
-			GUI.BeginGroup(new Rect(Screen.width / 2 - 150, 0 ,(myEnemyScript.GetVitality() * 300 / 400),50));
+			GUI.BeginGroup(new Rect(Screen.width / 2 - 150, 0 ,(myEnemyScript.GetVitality() * 300 / myEnemyScript.GetMaxVitality()),50));
 			GUI.DrawTexture(new Rect(0,0,300,50),EnemyLife);
 			GUI.EndGroup();
 		}
@@ -198,7 +203,7 @@ public class EnemyTargeting : MonoBehaviour
 
 		audio.PlayOneShot(EstocadeSound);
 
-		myEnemyScript.UpdateVitality(-(70 * PlayerCaract.GetForce())/100); // 70% de 100 de force = 70
+		myEnemyScript.UpdateVitality(-(int)(70 * PlayerCaract.GetForce())/100); // 70% de 100 de force = 70
 	}
 
 	void Salve()
@@ -243,7 +248,7 @@ public class EnemyTargeting : MonoBehaviour
 				if(Vector3.Angle(transform.position, enemy.transform.position) < 60 ){ // Si dans un cone 120 °
 						Debug.Log("Ok");
 						if(enemy.GetComponent<EnnemyAI>()){
-							enemy.GetComponent<EnnemyAI>().UpdateVitality(-((120 * PlayerCaract.GetForce())/100));
+							enemy.GetComponent<EnnemyAI>().UpdateVitality(-(int)((120 * PlayerCaract.GetForce())/100));
 							ennemysSalve.Add(enemy.GetComponent<EnnemyAI>());
 						}
 					}
@@ -260,7 +265,7 @@ public class EnemyTargeting : MonoBehaviour
 
 	void SalveHit(){
 		foreach(EnnemyAI enemy in ennemysSalve){
-			enemy.UpdateVitality(-25 * PlayerCaract.GetForce()/100); 
+			enemy.UpdateVitality(-25 * (int)PlayerCaract.GetForce()/100); 
 		}
 	}
 
@@ -310,7 +315,7 @@ public class EnemyTargeting : MonoBehaviour
 				if(Vector3.Distance(transform.position, enemy.transform.position) < 8.0f){
 					Instantiate(Resources.Load<GameObject>("Prefab/explosion"), enemy.transform.position, enemy.transform.rotation);
 					if(enemy.GetComponent<EnnemyAI>())
-						enemy.GetComponent<EnnemyAI>().UpdateVitality(-((120 * PlayerCaract.GetForce())/100));
+						enemy.GetComponent<EnnemyAI>().UpdateVitality(-((120 * (int)PlayerCaract.GetForce())/100));
 				}
 		}
 
@@ -353,7 +358,7 @@ public class EnemyTargeting : MonoBehaviour
 			if(Vector3.Distance(transform.position, enemy.transform.position) < 12.0f) // Si dans un rayon de 180°
 				if(Vector3.Angle(transform.position, enemy.transform.position) < 90 ){
 						if(enemy.GetComponent<EnnemyAI>())	
-							enemy.GetComponent<EnnemyAI>().UpdateVitality(-((110 * PlayerCaract.GetForce())/100));
+							enemy.GetComponent<EnnemyAI>().UpdateVitality(-((110 * (int)PlayerCaract.GetForce())/100));
 					}
 		}
 	}

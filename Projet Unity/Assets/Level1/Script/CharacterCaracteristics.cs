@@ -11,6 +11,8 @@ public class CharacterCaracteristics : MonoBehaviour
 	public GUIText textLevel;
 	private float progress = 0.0f;
 
+	public GameObject bouclier;
+
 	private float PlayerForce;
 	public int PlayerVitality;
 	private float PlayerSpeed;
@@ -64,8 +66,9 @@ public class CharacterCaracteristics : MonoBehaviour
 		//Animation
 		// initialising reference variables
 		anim = GetComponent<Animator>();					  
-		col = GetComponent<CapsuleCollider>();				
-		
+		col = GetComponent<CapsuleCollider>();
+
+		bouclier.GetComponent<MeshRenderer>().enabled = false;
 	}
 	
 	// Update is called once per frame
@@ -173,8 +176,11 @@ public class CharacterCaracteristics : MonoBehaviour
 	}
 	
 	/*** Avec value le chagment ***/
-	public void SetDeltaVitality( int value )
+	public void SetDeltaVitality( float value )
 	{
+		if(value >0)
+			Instantiate(Resources.Load<GameObject>("Prefab/soin"), transform.position + transform.up, new Quaternion(0,1,0,1));
+
 		if(value < 0 && parade){
 			parade = false;
 			SfText =  Instantiate(Resources.Load("Prefab/SfUse"),new Vector3(0.43f,0.32f,0f), Quaternion.identity) as GameObject;
@@ -182,13 +188,28 @@ public class CharacterCaracteristics : MonoBehaviour
 			SfText.guiText.color = new Color32(13,157,20,255);
 			SfText.guiText.text = "PAAARAAAAAADE !!!";
 
+			bouclier.GetComponent<MeshRenderer>().enabled = true;
+
+			Invoke("desBoubou", 1);
+
+
+
+			/*GameObject bouclier = Instantiate(Resources.Load("Prefab/Bouclier"), transform.position + transform.forward + new Vector3(0,2,0), transform.rotation) as GameObject;
+			bouclier.transform.localScale = (new Vector3(4,4,4));
+			bouclier.transform.rotation = Quaternion.AngleAxis(90, Vector3.up);//(new Quaternion(90,0,180,0));
+			bouclier.transform.rotation = Quaternion.AngleAxis(-90, Vector3.right);//(new Quaternion(90,0,180,0));
+			//bouclier.transform.rotation = Quaternion.AngleAxis(180, Vector3.forward);*/
 
 			return;
 		}
 
-		PlayerVitality += value;
+		PlayerVitality +=(int) value;
 	}
-	
+
+	private void desBoubou(){
+		bouclier.GetComponent<MeshRenderer>().enabled = false;
+	}
+
 	public void SetVitality( int value )
 	{
 		PlayerVitality = value;
@@ -218,8 +239,8 @@ public class CharacterCaracteristics : MonoBehaviour
 		return xp;
 	}
 
-	public void updateXp(int a, bool b){
-		xp += a;
+	public void updateXp(float a, bool b){
+		xp +=(int) a;
 
 		SfText =  Instantiate(Resources.Load("Prefab/SfUse"),new Vector3(0.445f,0.6f,0f), Quaternion.identity) as GameObject;
 		SfText.guiText.fontSize = 60;
