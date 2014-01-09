@@ -12,12 +12,14 @@ public class ActionBar : MonoBehaviour
 	private Texture2D Salve;
 	private Texture2D Parade;
 	private Texture2D Pourfendeur;
+	private Texture2D Hachoir;
 
 	//Skills ToolTips
 	private Texture2D TipsEstocad;
 	private Texture2D TipsSalve;
 	private Texture2D TipsParade;
 	private Texture2D TipsPourfendeur;
+	private Texture2D TipsHachoir;
 
 	//Life
 	private Texture2D EmptyLife;
@@ -61,11 +63,13 @@ public class ActionBar : MonoBehaviour
 		Salve = Resources.Load("GUI/ActionBar/Salve") as Texture2D;
 		Parade = Resources.Load("GUI/ActionBar/Parade") as Texture2D;
 		Pourfendeur = Resources.Load("GUI/ActionBar/Pourfendeur") as Texture2D;
+		Hachoir = Resources.Load("GUI/ActionBar/Hachoir") as Texture2D;
 
 		TipsEstocad = Resources.Load("GUI/ToolTipAttack/Estocade") as Texture2D;
 		TipsSalve = Resources.Load("GUI/ToolTipAttack/Salve de couteaux") as Texture2D;
 		TipsParade = Resources.Load("GUI/ToolTipAttack/Parade") as Texture2D;
 		TipsPourfendeur = Resources.Load("GUI/ToolTipAttack/Pourfendeur") as Texture2D;
+		TipsHachoir = Resources.Load("GUI/ToolTipAttack/Hachoir") as Texture2D;
 
 		//Foreground
 		myLife =  Resources.Load("GUI/ActionBar/FullLife")as Texture2D;
@@ -144,6 +148,10 @@ public class ActionBar : MonoBehaviour
 		if(new Rect(Screen.width / 2, Screen.height - 100 ,60,60).Contains(Event.current.mousePosition))
 		{
 			GUI.DrawTexture(new Rect(0, Screen.height - 200 ,368,200), TipsPourfendeur);
+		}
+		if(new Rect(Screen.width / 2 + 60, Screen.height - 100 ,60,60).Contains(Event.current.mousePosition))
+		{
+			GUI.DrawTexture(new Rect(0, Screen.height - 200 ,368,200), TipsHachoir);
 		}
 
 	}

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class EnemyTargeting : MonoBehaviour 
 {
@@ -19,7 +20,6 @@ public class EnemyTargeting : MonoBehaviour
 	//Enemy Life
 	private Texture2D EmptyEnemyLife;
 	private Texture2D EnemyLife;
-	public float myEnemyLife;
 
 	//Fight variables
 	private float AttackRange;
@@ -30,12 +30,14 @@ public class EnemyTargeting : MonoBehaviour
 	private float lastTimeSalve;
 	private float lastTimePourfendeur;
 	private float lastTimeParade;
-	private float lastTime;
+	private float lastTimeHachoir;
 
 	private int potion=5;
 
 	//Scripts
 	private EnnemyAI myEnemyScript;
+
+	private List<EnnemyAI> ennemysSalve;
 	
 
 	// Use this for initialization
@@ -54,11 +56,13 @@ public class EnemyTargeting : MonoBehaviour
 
 		AttackRange = 6;
 
-		lastTimeEstocade = 0f;
-		lastTimeSalve = 0f;
-		lastTimePourfendeur = 0f;
-		lastTimeParade = 0f;
-		lastTime = 0f;
+		lastTimeEstocade = -5f;
+		lastTimeSalve = -50f;
+		lastTimePourfendeur = -50f;
+		lastTimeParade = -50f;
+		lastTimeHachoir = -50f;
+
+		ennemysSalve = new List<EnnemyAI>();
 	} 
 	
 	// Update is called once per frame
@@ -101,10 +105,11 @@ public class EnemyTargeting : MonoBehaviour
 		}
 		else if(Input.GetKeyDown(KeyCode.Alpha4))
 		{
-			if(AttackDist < AttackRange)
-			{
 				Pourfendeur();
-			}
+		}
+		else if(Input.GetKeyDown(KeyCode.Alpha5))
+		{
+			Hachoir ();
 		}else if(Input.GetKeyDown(KeyCode.F1)){
 			Debug.Log ("Sisi");
 			if(potion>0){
@@ -134,7 +139,6 @@ public class EnemyTargeting : MonoBehaviour
 		selectIcon = selectedTarget.FindChild("Quad");
 		selectIcon.renderer.enabled = true;
 		myEnemyScript = selectedTarget.GetComponent<EnnemyAI>();
-		myEnemyLife = myEnemyScript.GetVitality();
 	}
 	
 	void DeselectTarget()
@@ -157,7 +161,7 @@ public class EnemyTargeting : MonoBehaviour
 			GUI.DrawTexture(new Rect(Screen.width / 2 - 150, 0 ,300,50), EmptyEnemyLife);
 
 			//Foreground
-			GUI.BeginGroup(new Rect(Screen.width / 2 - 150, 0 ,(myEnemyLife * 300 / 400),50));
+			GUI.BeginGroup(new Rect(Screen.width / 2 - 150, 0 ,(myEnemyScript.GetVitality() * 300 / 400),50));
 			GUI.DrawTexture(new Rect(0,0,300,50),EnemyLife);
 			GUI.EndGroup();
 		}
@@ -193,8 +197,8 @@ public class EnemyTargeting : MonoBehaviour
 		Debug.Log("Attack Estocade");
 
 		audio.PlayOneShot(EstocadeSound);
-		myEnemyLife -= (70 * PlayerCaract.GetForce())/100; // 70% de 100 de force = 70
-		myEnemyScript.SetVitality(myEnemyLife);
+
+		myEnemyScript.UpdateVitality(-(70 * PlayerCaract.GetForce())/100); // 70% de 100 de force = 70
 	}
 
 	void Salve()
@@ -230,12 +234,20 @@ public class EnemyTargeting : MonoBehaviour
 		Instantiate(Resources.Load<GameObject>("Prefab/Salve"), transform.position, transform.rotation);
 		audio.PlayOneShot(SalveSound);
 
+		ennemysSalve.Clear();
+
 		foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy")){
-			if(Vector3.Angle(transform.forward, enemy.transform.position) < 120 ) // Si dans un cone
-				if(Vector3.Distance(transform.position, enemy.transform.position) < 5.0f){
-					Debug.Log ("Touché");
-					enemy.GetComponent<EnnemyAI>().UpdateVitality(-((120 * PlayerCaract.GetForce())/100));
-				}
+
+
+			if(Vector3.Distance(transform.position, enemy.transform.position) < 8.0f){
+				if(Vector3.Angle(transform.position, enemy.transform.position) < 60 ){ // Si dans un cone 120 °
+						Debug.Log("Ok");
+						if(enemy.GetComponent<EnnemyAI>()){
+							enemy.GetComponent<EnnemyAI>().UpdateVitality(-((120 * PlayerCaract.GetForce())/100));
+							ennemysSalve.Add(enemy.GetComponent<EnnemyAI>());
+						}
+					}
+			}
 		}
 
 		Invoke("SalveHit", 1);
@@ -247,9 +259,9 @@ public class EnemyTargeting : MonoBehaviour
 	}
 
 	void SalveHit(){
-
-		myEnemyLife -= (25 * PlayerCaract.GetForce())/100; 
-		myEnemyScript.SetVitality(myEnemyLife);
+		foreach(EnnemyAI enemy in ennemysSalve){
+			enemy.UpdateVitality(-25 * PlayerCaract.GetForce()/100); 
+		}
 	}
 
 	void Parade()
@@ -295,13 +307,54 @@ public class EnemyTargeting : MonoBehaviour
 
 
 		foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy")){
-			if(Vector3.Distance(transform.position, enemy.transform.position) < 8.0f){
-				Debug.Log ("Touché");
-				Instantiate(Resources.Load<GameObject>("Prefab/explosion"), enemy.transform.position, enemy.transform.rotation);
-				enemy.GetComponent<EnnemyAI>().UpdateVitality(-((120 * PlayerCaract.GetForce())/100));
-			}
+				if(Vector3.Distance(transform.position, enemy.transform.position) < 8.0f){
+					Instantiate(Resources.Load<GameObject>("Prefab/explosion"), enemy.transform.position, enemy.transform.rotation);
+					if(enemy.GetComponent<EnnemyAI>())
+						enemy.GetComponent<EnnemyAI>().UpdateVitality(-((120 * PlayerCaract.GetForce())/100));
+				}
 		}
 
 			//Instantiate(respawnPrefab, respawn.transform.position, respawn.transform.rotation) as GameObject;
+	}
+
+
+	void Hachoir()
+	{
+		if(lastTimeHachoir > Time.realtimeSinceStartup - 10.0f)
+		{
+			//Ajouter Ce sort n'est pas encore disponible
+			SfText =  Instantiate(Resources.Load("Prefab/SfUse"),new Vector3(0.4f,0.20f,0f), Quaternion.identity) as GameObject;
+			SfText.guiText.color = Color.red;
+			SfText.guiText.text = "Ce sort n'est pas encore disponible";
+			return;
+		}
+		
+		if(!barreAction.useSf(2))
+			return;
+		
+		lastTimeHachoir=Time.realtimeSinceStartup;
+		
+		Plane playerPlane = new Plane(Vector3.up, transform.position);
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		float hitdist = 0.0f;
+		Vector3 destinationPosition;
+		
+		if (playerPlane.Raycast(ray, out hitdist)) {
+			Vector3 targetPoint = ray.GetPoint(hitdist);
+			destinationPosition = ray.GetPoint(hitdist);
+			Quaternion targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
+			transform.rotation = targetRotation;
+		}
+		
+		Instantiate(Resources.Load<GameObject>("Prefab/Hachoir"), transform.position, transform.rotation);
+		audio.PlayOneShot(SalveSound);
+		
+		foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy")){
+			if(Vector3.Distance(transform.position, enemy.transform.position) < 12.0f) // Si dans un rayon de 180°
+				if(Vector3.Angle(transform.position, enemy.transform.position) < 90 ){
+						if(enemy.GetComponent<EnnemyAI>())	
+							enemy.GetComponent<EnnemyAI>().UpdateVitality(-((110 * PlayerCaract.GetForce())/100));
+					}
+		}
 	}
 }

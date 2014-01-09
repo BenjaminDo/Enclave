@@ -8,11 +8,18 @@ public class Quete : MonoBehaviour {
 	private int id = 0;
 	private int idCurrent = 0;
 
+	private CharacterCaracteristics PlayerCaract;
+	public int xpRecompence = 1;
+
 	private GameObject Text;
 
 	void OnTriggerEnter(Collider other) {
 		if(!made)
 		{
+
+			PlayerCaract = GameObject.FindGameObjectWithTag("Player").GetComponent("CharacterCaracteristics") as CharacterCaracteristics;
+			PlayerCaract.updateXp(xpRecompence, false);
+
 			while(id < strDialogue.Length ){
 				Invoke("parler", 2*id);
 				id++;

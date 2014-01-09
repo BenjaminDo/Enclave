@@ -170,7 +170,7 @@ public class CharacterCaracteristics : MonoBehaviour
 	}
 	
 	/*** Avec value le chagment ***/
-	public void SetDeltaVitality( float value )
+	public void SetDeltaVitality( int value )
 	{
 		if(value < 0 && parade){
 			parade = false;
@@ -182,7 +182,7 @@ public class CharacterCaracteristics : MonoBehaviour
 
 			return;
 		}
-		
+
 		PlayerVitality += value;
 	}
 	
@@ -215,13 +215,18 @@ public class CharacterCaracteristics : MonoBehaviour
 		return xp;
 	}
 
-	public void updateXp(int a){
+	public void updateXp(int a, bool b){
 		xp += a;
 
 		SfText =  Instantiate(Resources.Load("Prefab/SfUse"),new Vector3(0.445f,0.6f,0f), Quaternion.identity) as GameObject;
 		SfText.guiText.fontSize = 60;
-		SfText.guiText.color = new Color32(91,3,24,160);
-		SfText.guiText.text = "Kill !";
+		if(b){
+			SfText.guiText.color = new Color32(91,3,24,160);
+			SfText.guiText.text = "Kill !";
+		}else{
+			SfText.guiText.color = new Color32(11,230,34,160);
+			SfText.guiText.text = "+XP";
+		}
 
 		if(xp > level*10 ){ // Linéaire levelUp tout les 10 xp{
 			PlayerForce += 30;
@@ -244,7 +249,7 @@ public class CharacterCaracteristics : MonoBehaviour
 
 	void OnGUI () {
 		DrawRectangle( new Rect(Screen.width-100, 0, 100, 20), new Color(0f ,0.0f ,0.1f ,0.65f));
-		DrawRectangle( new Rect(Screen.width-100, 0, progress*100, 20), new Color(0f ,0.9f ,1f ,1)); 
+		DrawRectangle( new Rect(Screen.width-100, 0, progress*100, 20), new Color(0f ,0.9f ,1f ,1f)); 
 		/*// Constrain all drawing to be within a pixel area .
 		GUI.BeginGroup (new Rect (Screen.width-100, 0, progress*100, 20));
 		

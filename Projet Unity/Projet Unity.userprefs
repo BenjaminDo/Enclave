@@ -1,11 +1,13 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Level1\Script\PuitRegen.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Level1\Script\EnemyTargeting.cs">
     <Files>
-      <File FileName="Assets\Level1\Script\CharacterCaracteristics.cs" Line="13" Column="2" />
-      <File FileName="Assets\Level1\Script\EnemyTargeting.cs" Line="184" Column="1" />
-      <File FileName="Assets\Level1\Script\EnnemyAI.cs" Line="235" Column="20" />
-      <File FileName="Assets\Level1\Script\PuitRegen.cs" Line="27" Column="1" />
+      <File FileName="Assets\Level1\Script\EnnemyAI.cs" Line="253" Column="19" />
+      <File FileName="Assets\Level1\Script\Quete.cs" Line="17" Column="1" />
+      <File FileName="Assets\Level1\Script\Achivement.cs" Line="28" Column="1" />
+      <File FileName="Assets\Level1\Script\CharacterCaracteristics.cs" Line="258" Column="3" />
+      <File FileName="Assets\Level1\Script\EnemyTargeting.cs" Line="200" Column="1" />
+      <File FileName="Assets\Level1\Script\ActionBar.cs" Line="86" Column="22" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

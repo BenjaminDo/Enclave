@@ -22,7 +22,7 @@ using System.Collections;
 public class EnnemyAI : MonoBehaviour 
 {
 	//Caractéristiques
-	public float EnemyVitality;
+	public float EnemyVitality = 400;
 	public int xpGave = 1;
 	private float Speed;
 	
@@ -79,7 +79,6 @@ public class EnnemyAI : MonoBehaviour
 
 	void SetValues()
 	{
-		EnemyVitality = 400;
 		Speed = 0.5f;
 		DetectRange = 20.0f;
 		AttackRange = 6.0f;
@@ -261,7 +260,7 @@ public class EnnemyAI : MonoBehaviour
 
 	void Death()
 	{
-		PlayerCaract.updateXp(xpGave);
+		PlayerCaract.updateXp(xpGave, true);
 		Destroy(gameObject);
 	}
 
