@@ -117,7 +117,8 @@ public class ActionBar : MonoBehaviour
 		GUI.DrawTexture(new Rect(Screen.width / 2 - 120, Screen.height - 100,60,60), Salve);
 		GUI.DrawTexture(new Rect(Screen.width / 2 - 60, Screen.height - 100,60,60), Parade);
 		GUI.DrawTexture(new Rect(Screen.width / 2, Screen.height - 100,60,60), Pourfendeur);
-		GUI.DrawTexture(new Rect(Screen.width / 2 + 60, Screen.height - 100,60,60), Case);
+		GUI.DrawTexture(new Rect(Screen.width / 2 + 60, Screen.height - 100,60,60), Hachoir);
+		//GUI.DrawTexture(new Rect(Screen.width / 2 + 60, Screen.height - 100,60,60), Case);
 
 		//Sang-Froid
 		GUI.DrawTexture(new Rect(Screen.width / 2 - 275, Screen.height - 180 ,100,180), EmptySF);
