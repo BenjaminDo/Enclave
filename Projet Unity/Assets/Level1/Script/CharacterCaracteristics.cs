@@ -12,7 +12,7 @@ public class CharacterCaracteristics : MonoBehaviour
 	private float progress = 0.0f;
 
 	private float PlayerForce;
-	public float PlayerVitality;
+	public int PlayerVitality;
 	private float PlayerSpeed;
 	private int maxLife = 100;
 
@@ -56,7 +56,7 @@ public class CharacterCaracteristics : MonoBehaviour
 		PlayerVitality = 100;
 		PlayerSpeed = 100;
 
-		xp = 90;
+		xp = 0;
 		level = 1;
 
 		InvokeRepeating("IncreaseLife", 2, LifeDelay);
@@ -186,12 +186,12 @@ public class CharacterCaracteristics : MonoBehaviour
 		PlayerVitality += value;
 	}
 	
-	public void SetVitality( float value )
+	public void SetVitality( int value )
 	{
 		PlayerVitality = value;
 	}
 	
-	public float GetVitality()
+	public int GetVitality()
 	{
 		return PlayerVitality;
 	}
@@ -217,6 +217,12 @@ public class CharacterCaracteristics : MonoBehaviour
 
 	public void updateXp(int a){
 		xp += a;
+
+		SfText =  Instantiate(Resources.Load("Prefab/SfUse"),new Vector3(0.445f,0.6f,0f), Quaternion.identity) as GameObject;
+		SfText.guiText.fontSize = 60;
+		SfText.guiText.color = new Color32(91,3,24,160);
+		SfText.guiText.text = "Kill !";
+
 		if(xp > level*10 ){ // Linéaire levelUp tout les 10 xp{
 			PlayerForce += 30;
 			maxLife += 10;
