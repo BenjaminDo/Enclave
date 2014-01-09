@@ -22,9 +22,10 @@ using System.Collections;
 public class EnnemyAI : MonoBehaviour 
 {
 	//Caractéristiques
-	public float EnemyVitality = 400;
+	public int EnemyVitalityMax = 400;
+	private int EnemyVitality;
 	public int xpGave = 1;
-	private float Speed;
+	public float Power;
 	
 	//Param for Player
 	private GameObject Player;
@@ -58,7 +59,7 @@ public class EnnemyAI : MonoBehaviour
 	//Decompte
 	private float decompte=5;
 	private float HunTime;
-	private float AttackDelay = 1;
+	public float AttackDelay = 1;
 
 	void Awake()
 	{
@@ -70,6 +71,7 @@ public class EnnemyAI : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		EnemyVitality = EnemyVitalityMax;
 		Player = GameObject.FindGameObjectWithTag("Player");
 		PlayerCaract = Player.GetComponent("CharacterCaracteristics") as CharacterCaracteristics;
 		Wandering();
@@ -79,11 +81,11 @@ public class EnnemyAI : MonoBehaviour
 
 	void SetValues()
 	{
-		Speed = 0.5f;
 		DetectRange = 20.0f;
 		AttackRange = 6.0f;
 		HunTime = decompte;
 		if(Vitesse==0)Vitesse=5;
+		if(Power==0)Power=5;
 
 		Wander = true;
 		Hunt = false;
@@ -110,7 +112,7 @@ public class EnnemyAI : MonoBehaviour
 		
 		if(Wander)
 		{
-			transform.position += transform.TransformDirection(Vector3.forward)* Speed *Time.deltaTime;
+			transform.position += transform.TransformDirection(Vector3.forward)* Vitesse/2 *Time.deltaTime;
 			if((transform.position - Wandir).magnitude < 2)
 			{
 				Wandering();
@@ -250,7 +252,7 @@ public class EnnemyAI : MonoBehaviour
 	{
 		if(Atack)
 		{
-			PlayerCaract.SetDeltaVitality(-5);
+			PlayerCaract.SetDeltaVitality(-Power);
 			return;
 		}
 		else{
@@ -264,18 +266,23 @@ public class EnnemyAI : MonoBehaviour
 		Destroy(gameObject);
 	}
 
-	public void SetVitality( float value )
+	public void SetVitality( int value )
 	{
 		EnemyVitality = value;
 	}
 
-	public float GetVitality()
+	public int GetVitality()
 	{
 		return EnemyVitality;
 	}
 
-	public void UpdateVitality( float value )
+	public void UpdateVitality( int value )
 	{
 		EnemyVitality += value;
+	}
+
+	public float GetMaxVitality()
+	{
+		return EnemyVitalityMax;
 	}
 }

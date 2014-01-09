@@ -8,9 +8,9 @@ public class PuitRegen : MonoBehaviour {
 	private bool use = false;
 	private CharacterCaracteristics PlayerCaract;
 
-	void OnTriggerEnter(Collider other) {
+	void OnCollisionEnter(Collision collision) {
 		if( !use && (PlayerCaract.GetVitality()<PlayerCaract.getMaxLife()) ){
-			PlayerCaract.SetVitality(PlayerCaract.getMaxLife());
+			PlayerCaract.SetDeltaVitality(PlayerCaract.getMaxLife());
 			SfText =  Instantiate(Resources.Load("Prefab/SfUse"),new Vector3(0.41f,0.6f,0f), Quaternion.identity) as GameObject;
 			SfText.guiText.fontSize = 60;
 			SfText.guiText.color = new Color32(3,91,9,160);
